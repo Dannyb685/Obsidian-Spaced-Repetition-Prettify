@@ -208,6 +208,76 @@
   background-color: #88c0d0 !important;
 }
 
+/* -------------------------------------------------- GRADE FLASH (OPTIONAL) */
+/* A colored tick flashes in the bottom-left of the card when you grade with a
+   key, so you get confirmation of what you pressed as the card turns over.
+   Needs the matching main.js patch (see .obsidian/sr-hotkey-patch.py) to
+   create the element. Without it this block simply does nothing. */
+.sr-view .sr-scroll-wrapper {
+  position: relative;
+}
+
+.sr-view .sr-grade-tick {
+  --tick-duration: 0.2s;
+  --tick-color: var(--text-fg-faint);
+  position: absolute;
+  bottom: 0.5em;
+  left: 0.6em;
+  z-index: 10;
+  color: var(--tick-color);
+  font-size: 1.1rem;
+  line-height: 1;
+  pointer-events: none;
+  opacity: 0;
+  animation: sr-grade-tick-flash var(--tick-duration) ease-out forwards;
+}
+.sr-view .sr-grade-tick::after {
+  content: "\2713"; /* checkmark */
+}
+
+.sr-view .sr-grade-tick--again {
+  --tick-color: #bf616a;
+}
+.sr-view .sr-grade-tick--hard {
+  --tick-color: #d08770;
+}
+.sr-view .sr-grade-tick--good {
+  --tick-color: #a3be8c;
+}
+.sr-view .sr-grade-tick--easy {
+  --tick-color: #88c0d0;
+}
+
+@keyframes sr-grade-tick-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-view .sr-grade-tick {
+    animation-name: sr-grade-tick-fade;
+  }
+  @keyframes sr-grade-tick-fade {
+    0%,
+    35% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
 /* -------------------------------------------------- KEY BADGES (OPTIONAL) */
 /* DELETE THIS BLOCK unless you have also remapped the plugin's review keys to
    the Anki order (Again=1 Hard=2 Good=3 Easy=4). On a stock install the real
