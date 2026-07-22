@@ -209,8 +209,9 @@
 }
 
 /* -------------------------------------------------- GRADE FLASH (OPTIONAL) */
-/* A colored tick flashes in the bottom-left of the card when you grade with a
-   key, so you get confirmation of what you pressed as the card turns over.
+/* A colored tick appears in the bottom-left of the card when you grade with a
+   key, holds for 0.2s, then fades out over another 0.2s. Confirmation of what
+   you pressed as the card turns over.
    Needs the matching main.js patch (see .obsidian/sr-hotkey-patch.py) to
    create the element. Without it this block simply does nothing. */
 .sr-view .sr-scroll-wrapper {
@@ -218,7 +219,9 @@
 }
 
 .sr-view .sr-grade-tick {
-  --tick-duration: 0.2s;
+  --tick-hold: 0.2s; /* fully visible for this long */
+  --tick-fade: 0.2s; /* then fades out over this long */
+  --tick-pop: 0.12s; /* the initial appear */
   --tick-color: var(--text-fg-faint);
   position: absolute;
   bottom: 0.5em;
@@ -229,7 +232,9 @@
   line-height: 1;
   pointer-events: none;
   opacity: 0;
-  animation: sr-grade-tick-flash var(--tick-duration) ease-out forwards;
+  animation:
+    sr-grade-tick-in var(--tick-pop) ease-out forwards,
+    sr-grade-tick-out var(--tick-fade) ease-in var(--tick-hold) forwards;
 }
 .sr-view .sr-grade-tick::after {
   content: "\2713"; /* checkmark */
@@ -248,33 +253,41 @@
   --tick-color: #88c0d0;
 }
 
-@keyframes sr-grade-tick-flash {
-  0% {
+@keyframes sr-grade-tick-in {
+  from {
     opacity: 0;
     transform: scale(0.6);
   }
-  35% {
+  to {
     opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
     transform: scale(1);
   }
 }
 
+@keyframes sr-grade-tick-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sr-grade-tick-plain-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Same timing, no scale-pop. */
 @media (prefers-reduced-motion: reduce) {
   .sr-view .sr-grade-tick {
-    animation-name: sr-grade-tick-fade;
-  }
-  @keyframes sr-grade-tick-fade {
-    0%,
-    35% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
+    animation:
+      sr-grade-tick-plain-in var(--tick-pop) linear forwards,
+      sr-grade-tick-out var(--tick-fade) linear var(--tick-hold) forwards;
   }
 }
 

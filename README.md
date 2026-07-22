@@ -39,7 +39,7 @@ Both assume you have remapped the plugin's review keys to Anki's order (Again=1,
 
 **Key badges.** Relabels the small key hints on the answer buttons to `1 2 3 4`. On a stock install the real keys are Hard=1, Good=2, Easy=3, so these labels would lie to you.
 
-**Grade flash.** A colored tick appears in the bottom-left of the card for 0.2s when you grade with a key, matching that button's color. This one also needs a small patch to the plugin's `main.js` to create the element. Without it the CSS is inert and harmless. Tune the timing with `--tick-duration`.
+**Grade flash.** A colored tick appears in the bottom-left of the card when you grade with a key, matching that button's color. It holds for 0.2s, then fades out over another 0.2s. Tune it with `--tick-hold`, `--tick-fade`, and `--tick-pop`. This one also needs a small patch to the plugin's `main.js` to create the element. Without it the CSS is inert and harmless.
 
 One thing worth knowing regardless of whether you use this theme: the plugin ships a `0` badge on the Again button, but pressing `0` fires **Reset**, which wipes that card's scheduling history with no confirmation. Again has no key at all. That badge is wrong as shipped.
 
