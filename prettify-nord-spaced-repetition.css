@@ -1,0 +1,365 @@
+/* ==========================================================================
+   Prettify Nord for Obsidian Spaced Repetition
+   Ported from the Anki "Prettify" theme by @pranavdeshai (v0.1.1)
+   https://github.com/pranavdeshai/anki-prettify
+
+   Everything here is scoped to the Spaced Repetition review view
+   (.sr-view / #sr-modal-view), so the rest of the vault is untouched.
+   ========================================================================== */
+
+/* -------------------------------------------------- PREFERENCES */
+.sr-view,
+#sr-modal-view {
+  --card-max-width: 40em;
+  --card-text-align: left;
+  --font-size-regular: 26px;
+  --font-size-small: 12px;
+  --sr-font-family: "Rubik", -apple-system, system-ui, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --img-width: 90%;
+  --img-brightness: 1;
+  --img-filter: none;
+}
+
+/* -------------------------------------------------- COLORS: LIGHT */
+.theme-light .sr-view,
+.theme-light #sr-modal-view {
+  --page-bg: #ececec;
+  --text-fg: #434c5e;
+  --text-fg-faint: #4c566a;
+  --text-bg-selected: #eceff4;
+  --card-bg: #ffffff;
+  --card-border: transparent;
+  --card-box-shadow: #b8c2d740;
+  --divider: #d8dee9;
+  --tag-fg: #4c566a;
+  --tag-bg: transparent;
+  --tag-fg-active: #8fbcbb;
+  --tag-border: #d8dee9;
+  --tag-border-active: #8fbcbb;
+  --cloze-fg: #d14643;
+  --cloze-bg: rgb(250, 245, 190);
+  --link-fg: #81a1c1;
+  --link-fg-active: #8fbcbb;
+  --link-bg-active: #eceff4;
+  --bold-fg: #bf616a;
+  --italic-fg: #ebcb8b;
+  --bold-italic-fg: #d08770;
+  --underline-fg: #a3be8c;
+}
+
+/* -------------------------------------------------- COLORS: DARK */
+.theme-dark .sr-view,
+.theme-dark #sr-modal-view {
+  --page-bg: #242933;
+  --text-fg: #e7e9f0;
+  --text-fg-faint: #d8dee9;
+  --text-bg-selected: #3b4252;
+  --card-bg: #2e3440;
+  --card-border: transparent;
+  --card-box-shadow: #0f111540;
+  --divider: #4c566a;
+  --tag-fg: #d8dee9;
+  --tag-bg: transparent;
+  --tag-fg-active: #8fbcbb;
+  --tag-border: #4c566a;
+  --tag-border-active: #8fbcbb;
+  --cloze-fg: #88c0d0;
+  --cloze-bg: transparent;
+  --link-fg: #81a1c1;
+  --link-fg-active: #8fbcbb;
+  --link-bg-active: rgb(85, 181, 143);
+  --bold-fg: #bf616a;
+  --italic-fg: #ebcb8b;
+  --bold-italic-fg: #d08770;
+  --underline-fg: #a3be8c;
+}
+
+/* -------------------------------------------------- BACKGROUND */
+.sr-tab-view,
+.sr-view,
+#sr-modal-view,
+#sr-modal-view .sr-modal-content {
+  background-color: var(--page-bg);
+}
+
+.sr-view {
+  cursor: default;
+  padding: 0.75em 0.5em;
+}
+.is-mobile .sr-view {
+  padding: 0.25em 0;
+}
+
+/* -------------------------------------------------- FLASHCARD */
+.sr-view .sr-card-container {
+  background-color: var(--card-bg);
+  border-radius: 0.5em;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-box-shadow) 4px 8px 12px;
+  color: var(--text-fg);
+  font-family: var(--sr-font-family);
+  font-size: var(--font-size-regular);
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: var(--card-max-width);
+  width: 100%;
+  overflow: hidden;
+  text-align: var(--card-text-align);
+  word-wrap: break-word;
+}
+.sr-view .sr-card-container ::selection {
+  background-color: var(--text-bg-selected);
+}
+
+/* -------------------------------------------------- FIELDS */
+.sr-view .sr-card-container .sr-content {
+  font-family: var(--sr-font-family);
+  font-size: var(--font-size-regular);
+  color: var(--text-fg);
+  padding: 1.5em;
+}
+.is-mobile .sr-view .sr-card-container .sr-content {
+  padding: 1em;
+}
+
+/* -------------------------------------------------- DECK / CONTEXT */
+.sr-view .sr-context {
+  color: var(--text-fg-faint);
+  font-family: var(--sr-font-family);
+  font-size: var(--font-size-small);
+  font-style: normal;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding-bottom: 1.25em;
+}
+
+/* -------------------------------------------------- TOOLBAR */
+.sr-view .sr-card-toolbar {
+  background-color: transparent;
+  border-color: var(--divider);
+  font-family: var(--sr-font-family);
+  font-size: var(--font-size-small);
+}
+.sr-view .sr-card-toolbar .sr-info-section {
+  color: var(--text-fg-faint);
+  font-size: var(--font-size-small);
+}
+
+/* -------------------------------------------------- CLOZE */
+.sr-view .cloze-answer,
+.sr-view .cloze-input,
+.sr-view .sr-content mark {
+  background-color: var(--cloze-bg);
+  color: var(--cloze-fg);
+  border-radius: 3px;
+  padding: 1px 8px 4px;
+  font-weight: 650;
+}
+.sr-view .cloze-answer-wrong {
+  background-color: transparent;
+  color: var(--bold-fg);
+  text-decoration: line-through;
+}
+
+/* -------------------------------------------------- DIVIDER */
+.sr-view .sr-content hr {
+  backdrop-filter: none;
+  background-color: transparent;
+  border: none;
+  border-top: 1px solid var(--divider);
+  margin: 1.25em 0;
+  padding: 0;
+}
+
+/* -------------------------------------------------- ANSWER BUTTONS */
+.sr-view .sr-response {
+  border-top: 1px solid var(--divider);
+  gap: 0.75em;
+  padding: 0.75em 1em;
+}
+.sr-view .sr-response .sr-response-button {
+  border-radius: 0.35em;
+  font-family: var(--sr-font-family);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: filter 0.15s ease;
+}
+.sr-view .sr-response .sr-response-button:hover {
+  filter: brightness(0.94);
+}
+
+/* Nord palette for the four grades. Delete this block to keep the
+   plugin's default red / orange / blue / green buttons. */
+.sr-view .sr-response-button.sr-bg-red,
+.sr-view .sr-response-button.sr-bg-red:hover {
+  background-color: #bf616a !important;
+}
+.sr-view .sr-response-button.sr-bg-yellow,
+.sr-view .sr-response-button.sr-bg-yellow:hover {
+  background-color: #d08770 !important;
+}
+.sr-view .sr-response-button.sr-bg-green,
+.sr-view .sr-response-button.sr-bg-green:hover {
+  background-color: #a3be8c !important;
+}
+.sr-view .sr-response-button.sr-bg-blue,
+.sr-view .sr-response-button.sr-bg-blue:hover {
+  background-color: #88c0d0 !important;
+}
+
+/* -------------------------------------------------- KEY BADGES (OPTIONAL) */
+/* DELETE THIS BLOCK unless you have also remapped the plugin's review keys to
+   the Anki order (Again=1 Hard=2 Good=3 Easy=4). On a stock install the real
+   keys are Hard=1 Good=2 Easy=3, and these labels would lie to you.
+
+   Worth knowing either way: on a stock install the Again button shows a "0"
+   badge, but pressing 0 fires Reset, which wipes that card's scheduling
+   history. That badge is wrong in the plugin as shipped.
+
+   If the badges ever go blank, the plugin's "Use custom hotkeys" setting got
+   turned on, which disables all of them. Turn it back off. */
+body:not(.is-mobile)
+  .sr-view
+  .sr-card-container:not(.sr-custom-hotkeys)
+  .sr-response-button.sr-again-button::after {
+  content: "1";
+}
+body:not(.is-mobile)
+  .sr-view
+  .sr-card-container:not(.sr-custom-hotkeys)
+  .sr-response-button.sr-hard-button::after {
+  content: "2";
+}
+body:not(.is-mobile)
+  .sr-view
+  .sr-card-container:not(.sr-custom-hotkeys)
+  .sr-response-button.sr-good-button::after {
+  content: "3";
+}
+body:not(.is-mobile)
+  .sr-view
+  .sr-card-container:not(.sr-custom-hotkeys)
+  .sr-response-button.sr-easy-button::after {
+  content: "4";
+}
+
+/* -------------------------------------------------- IMAGES */
+.sr-view .sr-content img {
+  border-radius: 0.25em;
+  display: block;
+  margin: 1em auto;
+  max-width: var(--img-width) !important;
+  transition: max-width 0.25s 0.1s, opacity 0.25s 0.1s, filter 0.1s,
+    transform 0s;
+}
+.theme-dark .sr-view .sr-content img {
+  filter: var(--img-filter);
+  opacity: var(--img-brightness);
+}
+.sr-view .sr-content img:hover {
+  cursor: zoom-in;
+  filter: none;
+  max-width: 100% !important;
+  opacity: 1;
+}
+body:not(.is-mobile) .sr-view .sr-content img:active {
+  border: 1px solid var(--link-fg-active);
+  cursor: zoom-out;
+  filter: none;
+  left: 0;
+  max-width: 95% !important;
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+  z-index: 100;
+}
+
+/* -------------------------------------------------- TABLES */
+.sr-view .sr-content table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1em auto;
+  max-width: 100%;
+  font-size: 0.8em;
+}
+.sr-view .sr-content table thead,
+.sr-view .sr-content table tr:nth-of-type(even) {
+  background-color: var(--text-bg-selected);
+}
+.sr-view .sr-content table tr:first-child th:first-child {
+  border-top-left-radius: 0.5em;
+}
+.sr-view .sr-content table tr:first-child th:last-child {
+  border-top-right-radius: 0.5em;
+}
+.sr-view .sr-content table tr:last-child td:first-child {
+  border-bottom-left-radius: 0.5em;
+}
+.sr-view .sr-content table tr:last-child td:last-child {
+  border-bottom-right-radius: 0.5em;
+}
+.sr-view .sr-content table th,
+.sr-view .sr-content table td {
+  border-color: var(--divider);
+  padding: 0.5em;
+}
+
+/* -------------------------------------------------- HYPERLINKS */
+.sr-view .sr-content a,
+.sr-view .sr-content a:visited,
+.sr-view .sr-content a.internal-link {
+  text-decoration: none;
+  color: var(--link-fg);
+  border-radius: 0.25em;
+  padding: 0 0.1em;
+  transition: all 0.1s;
+}
+.sr-view .sr-content a:hover,
+.sr-view .sr-content a:active {
+  color: var(--link-fg-active);
+  background-color: var(--link-bg-active);
+}
+
+/* -------------------------------------------------- FORMATTING */
+/* Note: literal <b> tags are left alone so the "<b> Cloze Deletion"
+   snippet keeps working. This colors markdown **bold** only. */
+.sr-view .sr-content strong {
+  color: var(--bold-fg);
+}
+.sr-view .sr-content em,
+.sr-view .sr-content i:not(b i) {
+  color: var(--italic-fg);
+}
+.sr-view .sr-content strong > em,
+.sr-view .sr-content em > strong {
+  color: var(--bold-italic-fg);
+}
+.sr-view .sr-content u {
+  color: var(--underline-fg);
+}
+
+/* -------------------------------------------------- TAGS */
+.sr-view .sr-content a.tag {
+  all: initial;
+  background-color: var(--tag-bg);
+  border-radius: 0.25em;
+  border: 1px solid var(--tag-border);
+  color: var(--tag-fg);
+  display: inline-block;
+  font-size: var(--font-size-small);
+  font-family: var(--sr-font-family);
+  font-style: italic;
+  margin: 0 0.5em 0.5em 0;
+  padding: 0.25em;
+  transition: all 0.25s;
+  word-break: break-word;
+  cursor: pointer;
+}
+.sr-view .sr-content a.tag:hover {
+  border-color: var(--tag-border-active);
+  color: var(--tag-fg-active);
+}
+
+/* -------------------------------------------------- END OF THEME */
