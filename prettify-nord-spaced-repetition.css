@@ -222,13 +222,15 @@
   --tick-hold: 0.2s; /* fully visible for this long */
   --tick-fade: 0.2s; /* then fades out over this long */
   --tick-pop: 0.12s; /* the initial appear */
+  --tick-size: 2.6rem; /* drop toward 1.2rem if it feels shouty */
   --tick-color: var(--text-fg-faint);
   position: absolute;
-  bottom: 0.5em;
-  left: 0.6em;
+  bottom: 0.35em;
+  left: 0.45em;
   z-index: 10;
   color: var(--tick-color);
-  font-size: 1.1rem;
+  font-size: var(--tick-size);
+  font-weight: 700;
   line-height: 1;
   pointer-events: none;
   opacity: 0;
